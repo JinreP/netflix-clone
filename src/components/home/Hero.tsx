@@ -9,15 +9,11 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
-import { MovieType } from "@/lib/types";
+import { HeroProps, MovieType } from "@/lib/types";
 import Image from "next/image";
 import { Button } from "../ui/button";
 
 import { InfoIcon, PlayIcon } from "lucide-react";
-
-interface HeroProps {
-  movies: MovieType[];
-}
 
 export function Hero({ movies }: HeroProps) {
   if (!movies || movies.length === 0) {
