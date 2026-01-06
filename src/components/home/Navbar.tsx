@@ -21,8 +21,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Image from "next/image";
 export function Navbar() {
   return (
-    <div className="flex items-center justify-between px-10 p   pt-5">
-      <div className="flex gap-10">
+    <div className="flex items-center justify-between px-10 pt-4 pb-5">
+      <div className="flex items-center gap-10">
         <Logo />
         <Link href={"/"}>Home</Link>
         <Link href={"/shows"}>Shows</Link>
