@@ -14,3 +14,6 @@ export type MovieType = {
   video: boolean;
   vote_count: number;
 };
+export interface HeroProps {
+  movies: MovieType[];
+}
