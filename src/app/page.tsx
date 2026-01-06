@@ -5,7 +5,6 @@ import {
   OnlyOnNetflix,
   JapaneseTvShow,
   WesternTvShows,
-  WesternTvThrillers,
   UsTvSeries,
   WeThinkYouWouldLiveThis,
   TvDramas,
@@ -16,6 +15,7 @@ import {
   PoliticalShows,
   ViolentShows,
 } from "@/components/home/movies";
+
 import { Navbar } from "@/components/home/Navbar";
 import {
   getJapaneseTvShows,
@@ -40,7 +40,7 @@ export default async function Home() {
   const onlyOnNetflix = await getOnlyOnNetflix();
   const japanesTvShow = await getJapaneseTvShows();
   const westernTvShows = await getWesternTvShows();
-  const westernTvThrillers = await getWesternTvThrillers();
+
   const usTvSeries = await getUsTvSeries();
   const weThinkYouLoveThis = await getWeThinkYouLoveThis();
   const tvDramas = await getTvDramas();
@@ -55,12 +55,12 @@ export default async function Home() {
       <Navbar />
       <Hero movies={heroMovies} />
 
-      <div className="ml-12">
+      <div className="ml-12 flex flex-col gap-10">
         <NewOnNetflix movies={heroMovies} />
         <OnlyOnNetflix movies={onlyOnNetflix} />
         <JapaneseTvShow movies={japanesTvShow} />
         <WesternTvShows movies={westernTvShows} />
-        <WesternTvThrillers movies={westernTvThrillers} />
+
         <UsTvSeries movies={usTvSeries} />
         <WeThinkYouWouldLiveThis movies={weThinkYouLoveThis} />
         <TvDramas movies={tvDramas} />
@@ -71,7 +71,7 @@ export default async function Home() {
         <PoliticalShows movies={politicalShows} />
         <ViolentShows movies={violentShows} />
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 }
