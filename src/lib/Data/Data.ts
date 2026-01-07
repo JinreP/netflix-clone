@@ -52,18 +52,6 @@ export async function getWesternTvShows() {
   }
 }
 
-export async function getWesternTvThrillers() {
-  try {
-    const res = await api.get(
-      "/discover/tv?with_genres=53&with_origin_country=US&language=en-US&page=1"
-    );
-    return res.data.results;
-  } catch (error) {
-    console.error("Hero fetch error:", error);
-    return [];
-  }
-}
-
 export async function getUsTvSeries() {
   try {
     const res = await api.get(
@@ -162,6 +150,31 @@ export async function getViolent() {
   try {
     const res = await api.get(
       "/discover/tv?with_genres=10759,80&language=en-US&page=1"
+    );
+    return res.data.results;
+  } catch (error) {
+    console.error("Hero fetch error:", error);
+    return [];
+  }
+}
+
+export async function getTvShowsGenre(params: string) {
+  try {
+    const res = await api.get(
+      `/discover/tv?with_genres=${params}&language=en-US&page=1`
+    );
+    return res.data.results;
+  } catch (error) {
+    console.error("Hero fetch error:", error);
+    return [];
+  }
+}
+
+export async function getHeroByShows(genreId: any) {
+  try {
+    const today = new Date().toISOString().split("T")[0];
+    const res = await api.get(
+      `/discover/movie?with_genres=${genreId}&primary_release_date.lte=${today}&sort_by=popularity.desc&language=en-US&page=1`
     );
     return res.data.results;
   } catch (error) {

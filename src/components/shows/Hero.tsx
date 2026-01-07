@@ -8,27 +8,56 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
-import { HeroProps, MovieType } from "@/lib/types";
+import { MovieType } from "@/lib/types";
 import Image from "next/image";
 import { Button } from "../ui/button";
 
 import { InfoIcon, PlayIcon } from "lucide-react";
+import { getHeroByShows } from "@/lib/Data/Data";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { Genres } from "./Genres";
 
-export function Hero({ movies }: HeroProps) {
-  if (!movies || movies.length === 0) {
-    return (
-      <div className="flex items-center justify-center h-64">
-        <span className="text-white">Loading movies...</span>
-      </div>
-    );
-  }
+export function ShowHero() {
+  const [selectedGenre, setSelectedGenre] = useState<string>("All");
+  const [filteredShows, setFilteredShows] = useState<MovieType[]>([]);
+
+  const [hero, setHero] = useState<MovieType[]>([]);
+
+  const genreMap: Record<string, string> = {
+    "Action & Adventure": "10759",
+    Anime: "16",
+    Comedy: "35",
+    Crime: "80",
+    Documentary: "99",
+    Drama: "18",
+    Family: "10751",
+    Fantasy: "14",
+    Horror: "27",
+    Romance: "10749",
+    "Sci-Fi": "878",
+    Thriller: "53",
+    Sports: "10770",
+    Teen: "10751",
+    Documentaries: "99",
+  };
+  const genreId = selectedGenre === "All" ? "" : genreMap[selectedGenre];
+
+  useEffect(() => {
+    async function loadHero() {
+      const data = await getHeroByShows(genreId);
+      setHero(data);
+    }
+
+    loadHero();
+  }, [genreId]);
 
   return (
-    <div className="relative w-full h-[600px]">
+    <div className="relative w-full h-150">
       <Carousel className="w-full h-full">
         <CarouselContent>
-          {movies.map((movie, index) => (
-            <CarouselItem key={movie.id} className="relative w-full h-[600px]">
+          {hero.map((movie, index) => (
+            <CarouselItem key={movie.id} className="relative w-full h-150">
               <div className="absolute inset-0">
                 <Image
                   src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
@@ -45,9 +74,12 @@ export function Hero({ movies }: HeroProps) {
               <div className="relative z-10 flex items-center h-full">
                 <div className="container mx-auto px-4 md:px-8 lg:px-16">
                   <div className="max-w-2xl space-y-4">
-                    <p className="text-white/90 font-semibold text-lg">
-                      #{index + 1} in Movies Today
-                    </p>
+                    <div className="flex items-center gap-3">
+                      <h1 className="text-4xl md:text-4xl pb-10 lg:text-4xl font-bold text-white leading-tight">
+                        {selectedGenre}
+                      </h1>
+                      <Genres setSelectedGenre={setSelectedGenre} />
+                    </div>
                     <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">
                       {movie.title}
                     </h1>

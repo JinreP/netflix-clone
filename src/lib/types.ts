@@ -17,3 +17,8 @@ export type MovieType = {
 export interface HeroProps {
   movies: MovieType[];
 }
+
+export interface MovieRowProps {
+  title: string;
+  movies: MovieType[];
+}
