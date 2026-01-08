@@ -10,6 +10,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { useState } from "react";
+import { HoverDialogMovies } from "@/components/HoverDialog";
 
 export function MovieRow({ movies, title }: MovieRowProps) {
   const [show, setShow] = useState(0);
@@ -28,14 +29,16 @@ export function MovieRow({ movies, title }: MovieRowProps) {
                     {movies
                       .slice(pageIndex * 6, (pageIndex + 1) * 6)
                       .map((movie, i) => (
-                        <div key={i} className="relative w-full h-30">
-                          <Image
-                            src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
-                            alt={movie.title || "Movie backdrop"}
-                            fill
-                            className="object-cover"
-                          />
-                        </div>
+                        <HoverDialogMovies key={movie.id} movie={movie}>
+                          <div className="relative w-full h-30 cursor-pointer hover:scale-105 transition-transform duration-300 rounded-md overflow-hidden">
+                            <Image
+                              src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
+                              alt={movie.title || "Movie backdrop"}
+                              fill
+                              className="object-cover"
+                            />
+                          </div>
+                        </HoverDialogMovies>
                       ))}
                   </div>
                 </CarouselItem>
