@@ -26,7 +26,6 @@ export function Genres({
     "Thriller",
     "Sports",
     "Teen",
-    "US",
     "Documentaries",
   ];
 
